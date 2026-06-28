@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import avatarImage from "@/assets/avatar.png";
+import samarCv from "@/assets/Samar.pdf";
 
 const Hero = () => {
   const scrollToContact = () => {
@@ -68,6 +69,17 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="shadow-soft"
+              >
+                <a href={samarCv} target="_blank" rel="noreferrer">
+                  السيرة الذاتية
+                  <FileText className="w-4 h-4 mr-2" />
+                </a>
+              </Button>
               <Button
                 onClick={scrollToContact}
                 size="lg"
