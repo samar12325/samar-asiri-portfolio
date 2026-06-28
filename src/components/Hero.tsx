@@ -3,10 +3,38 @@ import { ArrowDown, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import avatarImage from "@/assets/avatar.png";
 import samarCv from "@/assets/Samar.pdf";
+import { useLanguage } from "@/lib/language";
+
+const content = {
+  ar: {
+    badge: "مرحبًا بكم في موقعي الشخصي",
+    name: "سمر عامر عسيري",
+    role: "مهندسة برمجيات | مطورة ويب",
+    description:
+      "خبرة عملية في تنفيذ مشاريع ويب متكاملة تشمل جمع وتحليل المتطلبات، التطوير، ونشر المشاريع على السيرفر.",
+    contact: "تواصل معي",
+    resume: "السيرة الذاتية",
+    avatarAlt: "سمر عامر عسيري",
+  },
+  en: {
+    badge: "Welcome to my personal website",
+    name: "Samar Amer Asiri",
+    role: "Software Engineer | Web Developer",
+    description:
+      "Hands-on experience building end-to-end web projects, from requirements analysis and development to deployment on production servers.",
+    contact: "Contact Me",
+    resume: "Resume",
+    avatarAlt: "Samar Amer Asiri",
+  },
+} as const;
 
 const Hero = () => {
+  const { isArabic, language } = useLanguage();
+  const t = content[language];
+
   const scrollToContact = () => {
     const element = document.querySelector("#contact");
+
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -15,12 +43,12 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center gradient-hero pt-20"
+      className="gradient-hero flex min-h-screen items-center justify-center pt-20"
     >
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 items-center lg:grid-flow-dense">
+        <div className="grid items-center gap-12 lg:grid-flow-dense lg:grid-cols-2">
           <motion.div
-            className="text-center lg:text-right"
+            className={`text-center ${isArabic ? "lg:text-right" : "lg:text-left"}`}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -30,121 +58,103 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-                مرحبًا بكم في موقعي الشخصي
+              <span className="mb-6 inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+                {t.badge}
               </span>
             </motion.div>
 
             <motion.h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4"
+              className="mb-4 text-4xl font-bold text-foreground md:text-5xl lg:text-6xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              سمر عامر عسيري
+              {t.name}
             </motion.h1>
 
             <motion.p
-              className="text-xl md:text-2xl text-gradient font-semibold mb-6"
+              className="mb-6 text-xl font-semibold text-gradient md:text-2xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              مهندسة برمجيات | مصممة مواقع ويب
+              {t.role}
             </motion.p>
 
             <motion.p
-              className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 lg:mr-0"
+              className={`mb-8 max-w-xl text-lg text-muted-foreground ${
+                isArabic ? "mx-auto lg:mx-0" : "mx-auto lg:mx-0"
+              }`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
             >
-              خبرة عملية في تنفيذ مشاريع ويب متكاملة تشمل جمع وتحليل
-              المتطلبات، التطوير، ونشر المشاريع على السيرفر.
+              {t.description}
             </motion.p>
 
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              className={`flex flex-col gap-4 sm:flex-row ${isArabic ? "justify-center lg:justify-start" : "justify-center lg:justify-start"}`}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
             >
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="shadow-soft"
-              >
+              <Button asChild size="lg" variant="outline" className="shadow-soft">
                 <a href={samarCv} target="_blank" rel="noreferrer">
-                  السيرة الذاتية
-                  <FileText className="w-4 h-4 mr-2" />
+                  {t.resume}
+                  <FileText className={isArabic ? "mr-2 h-4 w-4" : "ml-2 h-4 w-4"} />
                 </a>
               </Button>
               <Button
                 onClick={scrollToContact}
                 size="lg"
-                className="gradient-primary text-primary-foreground hover:opacity-90 transition-opacity shadow-soft"
+                className="gradient-primary text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
               >
-                تواصل معي
-                <ArrowDown className="w-4 h-4 mr-2" />
+                {t.contact}
+                <ArrowDown className={isArabic ? "mr-2 h-4 w-4" : "ml-2 h-4 w-4"} />
               </Button>
             </motion.div>
           </motion.div>
 
           <motion.div
-            className="flex justify-center lg:justify-end order-first lg:order-last"
+            className={`order-first flex ${isArabic ? "justify-center lg:justify-end" : "justify-center lg:justify-start"} lg:order-last`}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <div className="relative">
-              <div className="absolute -inset-4 rounded-full gradient-primary opacity-20 blur-2xl animate-pulse" />
+              <div className="absolute -inset-4 animate-pulse rounded-full gradient-primary opacity-20 blur-2xl" />
               <div className="absolute -inset-8 rounded-full bg-secondary/20 blur-3xl" />
 
               <motion.div
-                className="relative w-64 h-64 md:w-80 md:h-80 rounded-full gradient-primary p-1 shadow-elevated"
+                className="relative h-64 w-64 rounded-full gradient-primary p-1 shadow-elevated md:h-80 md:w-80"
                 animate={{ y: [0, -10, 0] }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
-                <div className="w-full h-full rounded-full bg-card flex items-center justify-center overflow-hidden">
+                <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-card">
                   <img
                     src={avatarImage}
-                    alt="سمر عامر عسيري"
-                    className="w-full h-full object-cover"
+                    alt={t.avatarAlt}
+                    className="h-full w-full object-cover"
                   />
                 </div>
               </motion.div>
 
               <motion.div
-                className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-primary/30"
+                className={`absolute -top-4 h-8 w-8 rounded-full bg-primary/30 ${isArabic ? "-left-4" : "-right-4"}`}
                 animate={{ y: [0, -8, 0], x: [0, 5, 0] }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.5,
-                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               />
               <motion.div
-                className="absolute -bottom-2 -right-6 w-6 h-6 rounded-full bg-secondary/40"
+                className={`absolute -bottom-2 h-6 w-6 rounded-full bg-secondary/40 ${isArabic ? "-right-6" : "-left-6"}`}
                 animate={{ y: [0, 8, 0], x: [0, -5, 0] }}
-                transition={{
-                  duration: 3.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1,
-                }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
               />
             </div>
           </motion.div>
         </div>
 
         <motion.div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
+          className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 md:block"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
@@ -152,9 +162,9 @@ const Hero = () => {
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-2"
+            className="flex h-10 w-6 justify-center rounded-full border-2 border-muted-foreground/30 pt-2"
           >
-            <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+            <div className="h-1.5 w-1.5 rounded-full bg-primary" />
           </motion.div>
         </motion.div>
       </div>

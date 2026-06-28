@@ -5,43 +5,134 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "البريد الإلكتروني",
-    value: "samaramer125@outlook.sa",
-    href: "mailto:samaramer125@outlook.sa",
-  },
-  {
-    icon: Linkedin,
-    label: "Linkedin",
-    value: "www.linkedin.com/in/samaramerasiri",
-    href: "https://www.linkedin.com/in/samaramerasiri",
-  },
-  {
-    icon: Github,
-    label: " Github",
-    value: "github.com/samar12325",
-    href: "https://github.com/samar12325",
-  },
-  {
-    icon: Phone,
-    label: "رقم التواصل",
-    value: "0559735137",
-    href: "tel:0559735137",
-  },
-];
+import { useLanguage } from "@/lib/language";
 
 const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/samaramer125@outlook.sa";
 
+const contactContent = {
+  ar: {
+    badge: "تواصل معي",
+    title: "لنعمل معًا",
+    fullName: "الاسم الكامل",
+    fullNamePlaceholder: "أدخل اسمك",
+    email: "البريد الإلكتروني",
+    emailPlaceholder: "أدخل بريدك الإلكتروني",
+    message: "رسالتك",
+    messagePlaceholder: "اكتب رسالتك هنا...",
+    sending: "جاري الإرسال...",
+    send: "إرسال الرسالة",
+    contactInfo: "معلومات التواصل",
+    locationLabel: "الموقع",
+    country: "المملكة العربية السعودية",
+    city: "مكة المكرمة",
+    errors: {
+      nameRequired: "الاسم مطلوب",
+      emailRequired: "البريد الإلكتروني مطلوب",
+      emailInvalid: "البريد الإلكتروني غير صالح",
+      messageRequired: "الرسالة مطلوبة",
+      submitFailed: "حاولي مرة أخرى بعد قليل.",
+      submitServiceFailed: "تعذر إرسال الرسالة من خدمة البريد.",
+    },
+    toast: {
+      successTitle: "تم إرسال رسالتك بنجاح",
+      successDescription: "إذا كانت هذه أول رسالة، افتحي رسالة التفعيل في بريدك لتفعيل الاستقبال المباشر.",
+      errorTitle: "تعذر إرسال الرسالة",
+      validateTitle: "تحققي من الحقول المطلوبة",
+      validateDescription: "أكملي الاسم والبريد والرسالة بشكل صحيح.",
+      subject: "رسالة جديدة من نموذج التواصل",
+    },
+    info: [
+      {
+        icon: Mail,
+        label: "البريد الإلكتروني",
+        value: "samaramer125@outlook.sa",
+        href: "mailto:samaramer125@outlook.sa",
+      },
+      {
+        icon: Linkedin,
+        label: "LinkedIn",
+        value: "www.linkedin.com/in/samaramerasiri",
+        href: "https://www.linkedin.com/in/samaramerasiri",
+      },
+      {
+        icon: Github,
+        label: "GitHub",
+        value: "github.com/samar12325",
+        href: "https://github.com/samar12325",
+      },
+      {
+        icon: Phone,
+        label: "رقم التواصل",
+        value: "0559735137",
+        href: "tel:0559735137",
+      },
+    ],
+  },
+  en: {
+    badge: "Contact Me",
+    title: "Let's Work Together",
+    fullName: "Full Name",
+    fullNamePlaceholder: "Enter your name",
+    email: "Email",
+    emailPlaceholder: "Enter your email",
+    message: "Message",
+    messagePlaceholder: "Write your message here...",
+    sending: "Sending...",
+    send: "Send Message",
+    contactInfo: "Contact Information",
+    locationLabel: "Location",
+    country: "Saudi Arabia",
+    city: "Makkah",
+    errors: {
+      nameRequired: "Name is required",
+      emailRequired: "Email is required",
+      emailInvalid: "Email is invalid",
+      messageRequired: "Message is required",
+      submitFailed: "Please try again in a moment.",
+      submitServiceFailed: "Failed to send the message from the mail service.",
+    },
+    toast: {
+      successTitle: "Your message was sent successfully",
+      successDescription: "If this is your first message, open the activation email to enable direct delivery.",
+      errorTitle: "Failed to send message",
+      validateTitle: "Check the required fields",
+      validateDescription: "Complete name, email, and message correctly.",
+      subject: "New message from the contact form",
+    },
+    info: [
+      {
+        icon: Mail,
+        label: "Email",
+        value: "samaramer125@outlook.sa",
+        href: "mailto:samaramer125@outlook.sa",
+      },
+      {
+        icon: Linkedin,
+        label: "LinkedIn",
+        value: "www.linkedin.com/in/samaramerasiri",
+        href: "https://www.linkedin.com/in/samaramerasiri",
+      },
+      {
+        icon: Github,
+        label: "GitHub",
+        value: "github.com/samar12325",
+        href: "https://github.com/samar12325",
+      },
+      {
+        icon: Phone,
+        label: "Phone",
+        value: "0559735137",
+        href: "tel:0559735137",
+      },
+    ],
+  },
+} as const;
+
 const Contact = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const { language } = useLanguage();
+  const t = contactContent[language];
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -49,17 +140,17 @@ const Contact = () => {
     const newErrors: Record<string, string> = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = "الاسم مطلوب";
+      newErrors.name = t.errors.nameRequired;
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "البريد الإلكتروني مطلوب";
+      newErrors.email = t.errors.emailRequired;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "البريد الإلكتروني غير صالح";
+      newErrors.email = t.errors.emailInvalid;
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = "الرسالة مطلوبة";
+      newErrors.message = t.errors.messageRequired;
     }
 
     setErrors(newErrors);
@@ -69,69 +160,62 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      setIsSubmitting(true);
-
-      try {
-        const response = await fetch(FORMSUBMIT_ENDPOINT, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-            _subject: "رسالة جديدة من نموذج التواصل",
-            _template: "table",
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Submission failed");
-        }
-
-        const result = await response.json();
-
-        if (result.success !== "true") {
-          throw new Error(
-            result.message || "تعذر إرسال الرسالة من خدمة البريد."
-          );
-        }
-
-        toast({
-          title: "تم إرسال رسالتك بنجاح!",
-          description:
-            "إذا كانت هذه أول رسالة، افتحي رسالة التفعيل في بريدك لتفعيل الاستقبال المباشر.",
-        });
-        setFormData({ name: "", email: "", message: "" });
-      } catch (error) {
-        const message =
-          error instanceof Error
-            ? error.message
-            : "حاولي مرة أخرى بعد قليل.";
-
-        toast({
-          title: "تعذر إرسال الرسالة",
-          description: message,
-          variant: "destructive",
-        });
-      } finally {
-        setIsSubmitting(false);
-      }
-    } else {
+    if (!validateForm()) {
       toast({
-        title: "تحقق من الحقول المطلوبة",
-        description: "أكملي الاسم والبريد والرسالة بشكل صحيح.",
+        title: t.toast.validateTitle,
+        description: t.toast.validateDescription,
         variant: "destructive",
       });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(FORMSUBMIT_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: t.toast.subject,
+          _template: "table",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Submission failed");
+      }
+
+      const result = await response.json();
+
+      if (result.success !== "true") {
+        throw new Error(result.message || t.errors.submitServiceFailed);
+      }
+
+      toast({
+        title: t.toast.successTitle,
+        description: t.toast.successDescription,
+      });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : t.errors.submitFailed;
+
+      toast({
+        title: t.toast.errorTitle,
+        description: message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
@@ -141,63 +225,48 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-muted/30">
+    <section id="contact" className="bg-muted/30 py-20 md:py-32">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            تواصل معي
+          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+            {t.badge}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            لنعمل معًا
-          </h2>
+          <h2 className="text-3xl font-bold text-foreground md:text-4xl">{t.title}</h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <form
-              onSubmit={handleSubmit}
-              className="bg-card rounded-xl p-6 md:p-8 shadow-card"
-            >
+            <form onSubmit={handleSubmit} className="rounded-xl bg-card p-6 shadow-card md:p-8">
               <div className="space-y-6">
                 <div>
-                  <label
-                    htmlFor="name"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
-                    الاسم الكامل
+                  <label htmlFor="name" className="mb-2 block text-sm font-medium text-foreground">
+                    {t.fullName}
                   </label>
                   <Input
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="أدخل اسمك"
+                    placeholder={t.fullNamePlaceholder}
                     className={errors.name ? "border-destructive" : ""}
                   />
-                  {errors.name && (
-                    <p className="text-sm text-destructive mt-1">
-                      {errors.name}
-                    </p>
-                  )}
+                  {errors.name && <p className="mt-1 text-sm text-destructive">{errors.name}</p>}
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
-                    البريد الإلكتروني
+                  <label htmlFor="email" className="mb-2 block text-sm font-medium text-foreground">
+                    {t.email}
                   </label>
                   <Input
                     id="email"
@@ -205,46 +274,35 @@ const Contact = () => {
                     type="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="أدخل بريدك الإلكتروني"
+                    placeholder={t.emailPlaceholder}
                     className={errors.email ? "border-destructive" : ""}
                   />
-                  {errors.email && (
-                    <p className="text-sm text-destructive mt-1">
-                      {errors.email}
-                    </p>
-                  )}
+                  {errors.email && <p className="mt-1 text-sm text-destructive">{errors.email}</p>}
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
-                    رسالتك
+                  <label htmlFor="message" className="mb-2 block text-sm font-medium text-foreground">
+                    {t.message}
                   </label>
                   <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="اكتب رسالتك هنا..."
+                    placeholder={t.messagePlaceholder}
                     rows={5}
                     className={errors.message ? "border-destructive" : ""}
                   />
-                  {errors.message && (
-                    <p className="text-sm text-destructive mt-1">
-                      {errors.message}
-                    </p>
-                  )}
+                  {errors.message && <p className="mt-1 text-sm text-destructive">{errors.message}</p>}
                 </div>
 
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full gradient-primary text-primary-foreground hover:opacity-90 transition-opacity"
+                  className="w-full gradient-primary text-primary-foreground transition-opacity hover:opacity-90"
                 >
-                  {isSubmitting ? "جاري الإرسال..." : "إرسال الرسالة"}
-                  <Send className="w-4 h-4 mr-2" />
+                  {isSubmitting ? t.sending : t.send}
+                  <Send className="h-4 w-4" />
                 </Button>
               </div>
             </form>
@@ -257,50 +315,41 @@ const Contact = () => {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <div className="bg-card rounded-xl p-6 shadow-card">
-              <h3 className="text-xl font-bold text-foreground mb-6">
-                معلومات التواصل
-              </h3>
+            <div className="rounded-xl bg-card p-6 shadow-card">
+              <h3 className="mb-6 text-xl font-bold text-foreground">{t.contactInfo}</h3>
 
               <div className="space-y-4">
-                {contactInfo.map((info, index) => (
+                {t.info.map((info) => (
                   <a
-                    key={index}
+                    key={info.label}
                     href={info.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors group"
+                    className="group flex items-center gap-4 rounded-lg bg-muted/50 p-4 transition-colors hover:bg-muted"
                   >
-                    <div className="w-12 h-12 rounded-lg gradient-primary flex items-center justify-center group-hover:scale-105 transition-transform">
-                      <info.icon className="w-5 h-5 text-primary-foreground" />
+                    <div className="flex h-12 w-12 items-center justify-center rounded-lg gradient-primary transition-transform group-hover:scale-105">
+                      <info.icon className="h-5 w-5 text-primary-foreground" />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground">
-                        {info.label}
-                      </p>
-                      <p className="text-foreground font-medium">
-                        {info.value}
-                      </p>
+                      <p className="text-sm text-muted-foreground">{info.label}</p>
+                      <p className="font-medium text-foreground">{info.value}</p>
                     </div>
                   </a>
                 ))}
               </div>
             </div>
 
-            <div className="bg-card rounded-xl p-6 shadow-card">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg gradient-primary flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-primary-foreground" />
+            <div className="rounded-xl bg-card p-6 shadow-card">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg gradient-primary">
+                  <MapPin className="h-5 w-5 text-primary-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">الموقع</p>
-                  <p className="text-sm text-muted-foreground">المملكة العربية السعودية</p>
-                  <p className="text-foreground font-medium">مكة المكرمة</p>
+                  <p className="text-sm text-muted-foreground">{t.locationLabel}</p>
+                  <p className="text-sm text-muted-foreground">{t.country}</p>
+                  <p className="font-medium text-foreground">{t.city}</p>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground/70 italic">
-               
-              </p>
             </div>
           </motion.div>
         </div>

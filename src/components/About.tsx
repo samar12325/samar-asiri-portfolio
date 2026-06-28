@@ -1,14 +1,44 @@
 import { motion } from "framer-motion";
 import { MapPin, Palette, Globe, Zap } from "lucide-react";
+import { useLanguage } from "@/lib/language";
 
-const highlights = [
-  { icon: MapPin, label: "الموقع", value:  "مكة المملكة العربية السعودية " },
-  { icon: Palette, label: "التخصص", value: "softwer engineering" },
-  { icon: Globe, label: "المجال", value: "تطوير الويب" },
-  { icon: Zap, label: "التركيز", value: "الأداء والسرعة" },
-];
+const aboutContent = {
+  ar: {
+    badge: "تعرّف عليّ",
+    title: "عني",
+    paragraphs: [
+      "مرحبًا، أنا سمر عامر عسيري، مطورة ويب Full-Stack أعمل على بناء حلول رقمية متكاملة تبدأ من فهم المشكلة وتنتهي بتجربة استخدام عملية ومستقرة.",
+      "لدي خبرة عملية في تحليل المتطلبات، تصميم بنية التطبيقات، تطوير الواجهات الأمامية، وتنفيذ الأنظمة الخلفية وربط قواعد البيانات ونشر المشاريع على بيئات التشغيل.",
+      "أهتم بكتابة كود منظم وسهل الصيانة، مع تركيز واضح على الأداء، الأمان، وتجربة المستخدم.",
+    ],
+    highlights: [
+      { icon: MapPin, label: "الموقع", value: "مكة المكرمة، السعودية" },
+      { icon: Palette, label: "التخصص", value: "هندسة برمجيات" },
+      { icon: Globe, label: "المجال", value: "تطوير الويب" },
+      { icon: Zap, label: "التركيز", value: "الأداء والسرعة" },
+    ],
+  },
+  en: {
+    badge: "Get to know me",
+    title: "About Me",
+    paragraphs: [
+      "Hello, I'm Samar Amer Asiri, a full-stack web developer focused on building complete digital solutions from problem analysis to reliable user experience.",
+      "I have hands-on experience in requirements analysis, application architecture, frontend development, backend implementation, database integration, and deployment.",
+      "I care about maintainable code, strong performance, security, and thoughtful user experience.",
+    ],
+    highlights: [
+      { icon: MapPin, label: "Location", value: "Makkah, Saudi Arabia" },
+      { icon: Palette, label: "Specialization", value: "Software Engineering" },
+      { icon: Globe, label: "Field", value: "Web Development" },
+      { icon: Zap, label: "Focus", value: "Performance and Speed" },
+    ],
+  },
+} as const;
 
 const About = () => {
+  const { isArabic, language } = useLanguage();
+  const t = aboutContent[language];
+
   return (
     <section id="about" className="py-20 md:py-32">
       <div className="container mx-auto px-4">
@@ -17,64 +47,50 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            تعرّف عليّ
+          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
+            {t.badge}
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            عني
-          </h2>
+          <h2 className="text-3xl font-bold text-foreground md:text-4xl">{t.title}</h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Text Content */}
+        <div className="grid items-center gap-12 lg:grid-cols-2">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: isArabic ? -30 : 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-6"
+            className={`space-y-6 ${isArabic ? "text-right" : "text-left"}`}
           >
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              مرحباً! أنا سمر عامر عسيري، مطورة ويب Full-Stack أعمل على بناء حلول ويب متكاملة تبدأ من فهم المشكلة وتنتهي بتجربة استخدام فعّالة ومستقرة.
-
-لدي خبرة عملية في التعامل مع دورة تطوير الويب بشكل كامل، حيث أبدأ بـ تحليل المتطلبات وفهم أهداف المشروع والمستخدم، ثم تصميم بنية واضحة للتطبيق، وتنفيذ واجهات أمامية سلسة، وأنظمة خلفية منظمة وقابلة للتوسع.
-
-أمتلك معرفة جيدة بآلية نشر المشاريع على السيرفر، وإعداد بيئة التشغيل، وربط قواعد البيانات، والتأكد من استقرار وأداء التطبيق بعد الإطلاق. أحرص على كتابة كود نظيف، منظم، وسهل الصيانة، مع الاهتمام بالأداء، الأمان، وتجربة المستخدم.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              أؤمن بأن التصميم الجيد يبدأ من فهم احتياجات المستخدم، ولذلك أحرص
-              على بناء مواقع سريعة وسهلة الاستخدام تُحقق الأهداف المرجوة. أعمل
-              بشكل مستمر على تطوير مهاراتي ومواكبة أحدث التقنيات في عالم الويب.
-            </p>
-           
+            {t.paragraphs.map((paragraph) => (
+              <p key={paragraph} className="text-lg leading-relaxed text-muted-foreground">
+                {paragraph}
+              </p>
+            ))}
           </motion.div>
 
-          {/* Highlights Grid */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: isArabic ? 30 : -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="grid grid-cols-2 gap-4"
           >
-            {highlights.map((item, index) => (
+            {t.highlights.map((item, index) => (
               <motion.div
                 key={item.label}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="bg-card rounded-xl p-6 shadow-card hover:shadow-elevated transition-shadow duration-300"
+                className="rounded-xl bg-card p-6 shadow-card transition-shadow duration-300 hover:shadow-elevated"
               >
-                <div className="w-12 h-12 rounded-lg gradient-primary flex items-center justify-center mb-4">
-                  <item.icon className="w-6 h-6 text-primary-foreground" />
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg gradient-primary">
+                  <item.icon className="h-6 w-6 text-primary-foreground" />
                 </div>
-                <h3 className="text-sm text-muted-foreground mb-1">
-                  {item.label}
-                </h3>
-                <p className="text-foreground font-semibold">{item.value}</p>
+                <h3 className="mb-1 text-sm text-muted-foreground">{item.label}</h3>
+                <p className="font-semibold text-foreground">{item.value}</p>
               </motion.div>
             ))}
           </motion.div>
