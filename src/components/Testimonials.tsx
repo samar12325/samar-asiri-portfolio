@@ -1,14 +1,9 @@
 import { motion } from "framer-motion";
 import { Award, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { useLanguage } from "@/lib/language";
-
-import certificateImage from "@/assets/king-abdulaziz-hospital-certificate.png";
-import samarCertificate from "@/assets/ministry-of-health-certificate.png";
-import digitalHealthCertificate from "@/assets/makkah-health-cluster-certificate.jpg";
 import recommendationLetter from "@/assets/digital-health-recommendation-letter-preview.png";
 import recommendationPdf from "@/assets/digital-health-recommendation-letter.pdf";
+import { useLanguage } from "@/lib/language";
 
 const testimonialContent = {
   ar: {
@@ -22,11 +17,17 @@ const testimonialContent = {
       "خطابات توصية رسمية توضح تقييمي المهني خلال فترات التدريب والعمل على مشاريع تقنية داخل بيئات مؤسسية.",
     viewLetter: "عرض خطاب التوصية",
     certificates: [
-      { title: "شهادة شكر - مستشفى الملك عبدالعزيز", image: certificateImage },
-      { title: "شهادة شكر - وزارة الصحة (التطوع الصحي)", image: samarCertificate },
+      {
+        title: "شهادة شكر - مستشفى الملك عبدالعزيز",
+        pdfLink: "/certificates/king-abdulaziz-hospital.pdf",
+      },
+      {
+        title: "شهادة شكر - وزارة الصحة (التطوع الصحي)",
+        pdfLink: "/certificates/ministry-of-health.pdf",
+      },
       {
         title: "شهادة شكر - الإدارة التنفيذية للصحة الرقمية (تجمع مكة الصحي)",
-        image: digitalHealthCertificate,
+        pdfLink: "/certificates/makkah-health-cluster.pdf",
       },
     ],
     letters: [
@@ -49,11 +50,17 @@ const testimonialContent = {
       "Official recommendation letters reflecting my professional evaluation during training and project work in institutional environments.",
     viewLetter: "View Recommendation Letter",
     certificates: [
-      { title: "Certificate of Appreciation - King Abdulaziz Hospital", image: certificateImage },
-      { title: "Certificate of Appreciation - Ministry of Health", image: samarCertificate },
+      {
+        title: "Certificate of Appreciation - King Abdulaziz Hospital",
+        pdfLink: "/certificates/king-abdulaziz-hospital.pdf",
+      },
+      {
+        title: "Certificate of Appreciation - Ministry of Health",
+        pdfLink: "/certificates/ministry-of-health.pdf",
+      },
       {
         title: "Certificate of Appreciation - Digital Health Executive Administration",
-        image: digitalHealthCertificate,
+        pdfLink: "/certificates/makkah-health-cluster.pdf",
       },
     ],
     letters: [
@@ -88,37 +95,34 @@ const Testimonials = () => {
         </motion.div>
 
         <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-3">
-          {t.certificates.map((certificate, index) => {
-            const card = (
-              <motion.div
-                key={`${certificate.title}-${index}`}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                className="rounded-xl bg-card p-6 shadow-card transition-shadow duration-300 hover:shadow-elevated"
-              >
-                <div className="mb-6 flex items-center gap-3">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                    <Award className="h-6 w-6 text-primary" />
-                  </div>
-                  <h4 className="font-semibold text-foreground">{certificate.title}</h4>
+          {t.certificates.map((certificate, index) => (
+            <motion.div
+              key={`${certificate.title}-${index}`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              className="rounded-xl bg-card p-6 shadow-card transition-shadow duration-300 hover:shadow-elevated"
+            >
+              <div className="mb-6 flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                  <Award className="h-6 w-6 text-primary" />
                 </div>
-                <Button variant="outline" className="w-full">
+                <h4 className="font-semibold text-foreground">{certificate.title}</h4>
+              </div>
+              {certificate.pdfLink ? (
+                <Button variant="outline" className="w-full" asChild>
+                  <a href={certificate.pdfLink} target="_blank" rel="noopener noreferrer">
+                    {t.viewCertificate}
+                  </a>
+                </Button>
+              ) : (
+                <Button variant="outline" className="w-full" disabled>
                   {t.viewCertificate}
                 </Button>
-              </motion.div>
-            );
-
-            return (
-              <Dialog key={certificate.title}>
-                <DialogTrigger asChild>{card}</DialogTrigger>
-                <DialogContent className="max-w-4xl">
-                  <img src={certificate.image} alt={certificate.title} className="h-auto w-full rounded-lg" />
-                </DialogContent>
-              </Dialog>
-            );
-          })}
+              )}
+            </motion.div>
+          ))}
         </div>
 
         <div className="mt-16">
@@ -156,7 +160,7 @@ const Testimonials = () => {
                   <img src={letter.image} alt={letter.title} className="h-56 w-full object-cover" />
                 </div>
                 <Button variant="outline" className="w-full" asChild>
-                  <a href={letter.pdfLink} target="_blank" rel="noreferrer">
+                  <a href={letter.pdfLink} target="_blank" rel="noopener noreferrer">
                     {t.viewLetter}
                   </a>
                 </Button>
