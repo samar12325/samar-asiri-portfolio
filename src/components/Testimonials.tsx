@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useLanguage } from "@/lib/language";
 
-import certificateImage from "@/assets/certificate_image.png";
-import samarCertificate from "@/assets/Samar.png";
-import digitalHealthCertificate from "@/assets/certificate_image.jpg";
-import recommendationLetter from "@/assets/tr.png";
-import recommendationPdf from "@/assets/Doc1.pdf";
+import certificateImage from "@/assets/king-abdulaziz-hospital-certificate.png";
+import samarCertificate from "@/assets/ministry-of-health-certificate.png";
+import digitalHealthCertificate from "@/assets/makkah-health-cluster-certificate.jpg";
+import recommendationLetter from "@/assets/digital-health-recommendation-letter-preview.png";
+import recommendationPdf from "@/assets/digital-health-recommendation-letter.pdf";
 
 const testimonialContent = {
   ar: {

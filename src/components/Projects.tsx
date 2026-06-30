@@ -4,24 +4,24 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useLanguage } from "@/lib/language";
 
-import project1 from "@/assets/project-1.png";
-import project2 from "@/assets/project-2.png";
-import project3 from "@/assets/project-3.png";
-import project4 from "@/assets/project-4.png";
-import project5 from "@/assets/project-5.png";
-import project6 from "@/assets/project-6.png";
-import project1Homepage from "@/assets/project1Homepage.png";
-import project1NewComplaint from "@/assets/project1NEwCpmplanint.png";
-import projectDashboard from "@/assets/projectDashbord.png";
-import projectPermissions from "@/assets/projectPermissions.png";
-import project2Homepage from "@/assets/projec2page.png";
-import project2Servicepage from "@/assets/project2Servicepage.png";
-import project2ControlDashbord from "@/assets/project2ControlDashbord.png";
-import project3Homepage from "@/assets/project3Homepage.png";
-import project3OverView from "@/assets/project3OverViwe.png";
-import project3Dashboard from "@/assets/project3Dashbord.png";
-import complaintSystemCertificate from "@/assets/شهادة خبرة مهنية نظام البلاغات .pdf";
-import cmsSystemCertificate from "@/assets/شهادة_خبرة_مهنية_نظام_ادارة_محتوى_.pdf";
+import project1 from "@/assets/complaint-management-system-cover.png";
+import project2 from "@/assets/hospital-cms-cover.png";
+import project3 from "@/assets/multi-hospital-complaint-system-cover.png";
+import project4 from "@/assets/rahhal-platform-cover.png";
+import project5 from "@/assets/health-volunteering-app-figma-cover.png";
+import project6 from "@/assets/healthfirst-dashboard-cover.png";
+import project1Homepage from "@/assets/complaint-system-login-page.png";
+import project1NewComplaint from "@/assets/complaint-system-complaints-page.png";
+import projectDashboard from "@/assets/complaint-system-dashboard.png";
+import projectPermissions from "@/assets/complaint-system-permissions-page.png";
+import project2Homepage from "@/assets/hospital-cms-home-page.png";
+import project2Servicepage from "@/assets/hospital-cms-services-page.png";
+import project2ControlDashbord from "@/assets/hospital-cms-dashboard.png";
+import project3Homepage from "@/assets/multi-hospital-complaint-home-page.png";
+import project3OverView from "@/assets/multi-hospital-complaint-overview.png";
+import project3Dashboard from "@/assets/multi-hospital-complaint-dashboard.png";
+import complaintSystemCertificate from "@/assets/complaint-management-system-experience-certificate.pdf";
+import cmsSystemCertificate from "@/assets/hospital-cms-experience-certificate.pdf";
 
 const projectsContent = {
   ar: {

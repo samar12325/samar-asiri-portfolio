@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowDown, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import avatarImage from "@/assets/avatar.png";
-import samarCv from "@/assets/Samar.pdf";
+import avatarImage from "@/assets/samar-asiri-portrait.png";
+import samarCv from "@/assets/samar-amer-asiri-resume.pdf";
 import { useLanguage } from "@/lib/language";
 
 const content = {
