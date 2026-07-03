@@ -35,7 +35,7 @@ const contactContent = {
     },
     toast: {
       successTitle: "تم إرسال رسالتك بنجاح",
-      successDescription: "إذا كانت هذه أول رسالة، افتحي رسالة التفعيل في بريدك لتفعيل الاستقبال المباشر.",
+      successDescription: "سيتم الرد في اقرب وقت ",
       errorTitle: "تعذر إرسال الرسالة",
       validateTitle: "تحققي من الحقول المطلوبة",
       validateDescription: "أكملي الاسم والبريد والرسالة بشكل صحيح.",
