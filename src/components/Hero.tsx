@@ -18,13 +18,13 @@ const content = {
   },
   en: {
     badge: "Welcome to my personal website",
-    name: "Samar Amer Asiri",
+    name: "Samar  Asiri",
     role: "Software Engineer | Web Developer",
     description:
       "Hands-on experience building end-to-end web projects, from requirements analysis and development to deployment on production servers.",
     contact: "Contact Me",
     resume: "Resume",
-    avatarAlt: "Samar Amer Asiri",
+    avatarAlt: "Samar  Asiri",
   },
 } as const;
 
