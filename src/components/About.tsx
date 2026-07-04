@@ -22,7 +22,7 @@ const aboutContent = {
     badge: "Get to know me",
     title: "About Me",
     paragraphs: [
-      "Hello, I'm Samar Amer Asiri, a full-stack web developer focused on building complete digital solutions from problem analysis to reliable user experience.",
+      "Hello, I'm Samar  Asiri, a full-stack web developer focused on building complete digital solutions from problem analysis to reliable user experience.",
       "I have hands-on experience in requirements analysis, application architecture, frontend development, backend implementation, database integration, and deployment.",
       "I care about maintainable code, strong performance, security, and thoughtful user experience.",
     ],
