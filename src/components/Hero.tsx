@@ -8,23 +8,23 @@ import { useLanguage } from "@/lib/language";
 const content = {
   ar: {
     badge: "مرحبًا بكم في موقعي الشخصي",
-    name: "سمر عسيري",
-    role: "مهندسة برمجيات | مطورة ويب",
+    name: "سمر عامر عسيري",
+    role: "مهندسة برمجيات | مصممة مواقع | مطورة ويب",
     description:
-      "خبرة عملية في تنفيذ مشاريع ويب متكاملة تشمل جمع وتحليل المتطلبات، التطوير، ونشر المشاريع على السيرفر.",
+      "سمر عامر عسيري مهندسة برمجيات ومصممة مواقع متخصصة في تطوير مواقع ويب احترافية سريعة ومتجاوبة، مع خبرة عملية في تحليل المتطلبات، التطوير، ونشر المشاريع على السيرفر.",
     contact: "تواصل معي",
     resume: "السيرة الذاتية",
     avatarAlt: "سمر عامر عسيري",
   },
   en: {
     badge: "Welcome to my personal website",
-    name: "Samar  Asiri",
-    role: "Software Engineer | Web Developer",
+    name: "Samar Amer Asiri",
+    role: "Software Engineer | Web Designer | Web Developer",
     description:
-      "Hands-on experience building end-to-end web projects, from requirements analysis and development to deployment on production servers.",
+      "Samar Amer Asiri is a software engineer and web designer with hands-on experience building end-to-end web projects, from requirements analysis and development to deployment on production servers.",
     contact: "Contact Me",
     resume: "Resume",
-    avatarAlt: "Samar  Asiri",
+    avatarAlt: "Samar Amer Asiri",
   },
 } as const;
 

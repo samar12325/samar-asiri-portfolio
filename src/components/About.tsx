@@ -7,8 +7,8 @@ const aboutContent = {
     badge: "تعرّف عليّ",
     title: "عني",
     paragraphs: [
-      "مرحبًا، أنا سمر  عسيري، مطورة ويب Full-Stack أعمل على بناء حلول رقمية متكاملة تبدأ من فهم المشكلة وتنتهي بتجربة استخدام عملية ومستقرة.",
-      "لدي خبرة عملية في تحليل المتطلبات، تصميم بنية التطبيقات، تطوير الواجهات الأمامية، وتنفيذ الأنظمة الخلفية وربط قواعد البيانات ونشر المشاريع على بيئات التشغيل.",
+      "مرحبًا، أنا سمر عامر عسيري، مهندسة برمجيات ومصممة مواقع ومطورة ويب Full-Stack أعمل على بناء حلول رقمية متكاملة تبدأ من فهم المشكلة وتنتهي بتجربة استخدام عملية ومستقرة.",
+      "لدي خبرة عملية في تحليل المتطلبات، تصميم بنية التطبيقات، تطوير الواجهات الأمامية، وتنفيذ الأنظمة الخلفية وربط قواعد البيانات ونشر المشاريع على بيئات التشغيل، مع تركيز خاص على تصميم مواقع احترافية تناسب الهوية والأداء.",
       "أهتم بكتابة كود منظم وسهل الصيانة، مع تركيز واضح على الأداء، الأمان، وتجربة المستخدم.",
     ],
     highlights: [
@@ -22,8 +22,8 @@ const aboutContent = {
     badge: "Get to know me",
     title: "About Me",
     paragraphs: [
-      "Hello, I'm Samar  Asiri, a full-stack web developer focused on building complete digital solutions from problem analysis to reliable user experience.",
-      "I have hands-on experience in requirements analysis, application architecture, frontend development, backend implementation, database integration, and deployment.",
+      "Hello, I'm Samar Amer Asiri, a software engineer, web designer, and full-stack web developer focused on building complete digital solutions from problem analysis to reliable user experience.",
+      "I have hands-on experience in requirements analysis, application architecture, frontend development, backend implementation, database integration, deployment, and building professional websites with strong usability and performance.",
       "I care about maintainable code, strong performance, security, and thoughtful user experience.",
     ],
     highlights: [
